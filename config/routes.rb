@@ -1,4 +1,6 @@
 BibleShare::Application.routes.draw do
+  resources :passages
+
   root :to => 'pages#home'
   
   # The priority is based upon order of creation:
