@@ -25,12 +25,12 @@
 #posts
   %h2 Posts
   - @passage.posts.each_with_index do |post, index|
-    = post.content
+    = post.content.html_safe
     %br
     = link_to 'Comment on this post', new_comment_path(:post_id => post.id, :index => index), :remote => true
     %h5 Comments
     - post.comments.each do |comment|
-      = comment.content
+      = comment.content.html_safe
       %br
     .new_comment{:id=>"comment_#{index}"}
     

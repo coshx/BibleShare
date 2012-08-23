@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(params[:comment])
-
+    @comment.content = handle_bible_verse_tagging(@comment.content)
     respond_to do |format|
       if @comment.save
         format.html { redirect_to passage_path(Post.find(params[:comment][:post_id]).passage_id), notice: 'Comment was successfully created.' }
