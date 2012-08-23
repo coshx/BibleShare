@@ -14,6 +14,9 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'  
+  gem 'pry'
 end
 
 # Gems used only for assets and not required
