@@ -163,6 +163,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   haml-rails
   jquery-rails
+  nokogiri
   pg
   rails (= 3.2.3)
   rspec-rails

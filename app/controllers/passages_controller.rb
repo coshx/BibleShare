@@ -40,6 +40,7 @@ class PassagesController < ApplicationController
   # POST /passages
   # POST /passages.json
   def create
+
     @passage = Passage.new(params[:passage])
 
     respond_to do |format|
