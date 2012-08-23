@@ -61,9 +61,11 @@ class PassagesController < ApplicationController
   # PUT /passages/1.json
   def update
     @passage = Passage.find(params[:id])
-
+    @passage.update_attributes(params[:passage])
+    @passage.scripture = render_bible_verses(@passage.bible)
+    
     respond_to do |format|
-      if @passage.update_attributes(params[:passage])
+      if @passage.save
         format.html { redirect_to @passage, notice: 'Passage was successfully updated.' }
         format.json { head :no_content }
       else
