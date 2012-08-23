@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     if user_signed_in?
-      @passage.user_id = current_user.id
+      @comment.user_id = current_user.id
     end
     @comment.content = handle_bible_verse_tagging(@comment.content)
     
@@ -83,7 +83,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

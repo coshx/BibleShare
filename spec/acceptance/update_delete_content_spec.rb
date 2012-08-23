@@ -15,15 +15,16 @@ feature "Updating/deleting contents", %q{
     passage = FactoryGirl.create(:passage, :user_id => owner.id)
     post = FactoryGirl.create(:post, :passage_id => passage.id, :user_id => owner.id)
     comment = FactoryGirl.create(:comment, :post_id => post.id, :user_id => owner.id)
-  end
-
-  scenario "Logged in as the contents owner" do
+    
     visit '/users/sign_in'
     fill_in 'Email', :with => 'contents_owner@email.com'
     fill_in 'Password', :with => 'password'
     click_button 'Sign in'
     visit '/passages'
     click_link 'Show'
+  end
+
+  scenario "Logged in as the contents owner - Updating" do
     page.should have_content('John 3:16-20')
     find('#edit_delete_passage').should have_content('Edit')
     find('#edit_delete_passage').should have_content('Delete')
@@ -64,10 +65,23 @@ feature "Updating/deleting contents", %q{
     page.should_not have_content('Good sharing!')
     page.should have_content('Genesis 1:1-2')
     page.should have_content('In the beginning God created the heaven and the earth')
+  end
+  
+  scenario "Logged in as the contents owner - Deleting", :js => true do
     #delete comment
-    
+    page.should have_content('Good sharing!')
+    find('#edit_delete_comment').click_link 'Delete'
+    page.driver.browser.switch_to.alert.accept
+    page.should_not have_content('Good sharing!')
     #delete post
-    
+    page.should have_content('Good passage!')
+    find('#edit_delete_post').click_link 'Delete'
+    page.driver.browser.switch_to.alert.accept
+    page.should_not have_content('Good passage!')
     #delete passage
+    page.should have_content('Test title')
+    find('#edit_delete_passage').click_link 'Delete'
+    page.driver.browser.switch_to.alert.accept
+    page.should_not have_content('Test title')
   end
 end
