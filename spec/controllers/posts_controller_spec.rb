@@ -81,7 +81,7 @@ describe PostsController do
 
       it "redirects to the created post" do
         post :create, {:post => valid_attributes}, valid_session
-        response.should redirect_to(Post.last)
+        response.should redirect_to(Passage.find(:post.id))
       end
     end
 
