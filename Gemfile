@@ -38,6 +38,12 @@ gem 'haml-rails'
 
 gem 'nokogiri'
 
+gem 'devise', :git => "http://github.com/plataformatec/devise.git"
+
+gem 'oauth2' 
+
+gem 'nifty-generators'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
