@@ -2,6 +2,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   require 'net/http'
   
+  def authenticate_content_owner(content_user_id)
+    unless user_signed_in? && current_user.id == content_user_id
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
+      end
+    end
+  end
+  
   def render_bible_verses(param)
     bible_verses = param
     base_url = "http://api.preachingcentral.com/bible.php?passage="

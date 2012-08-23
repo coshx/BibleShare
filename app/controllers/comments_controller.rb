@@ -36,6 +36,7 @@ class CommentsController < ApplicationController
   # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
+    authenticate_content_owner(@comment.user_id)
   end
 
   # POST /comments
@@ -62,6 +63,9 @@ class CommentsController < ApplicationController
   # PUT /comments/1.json
   def update
     @comment = Comment.find(params[:id])
+    
+    authenticate_content_owner(@comment.user_id)
+    
     @comment.update_attributes(params[:comment])
     @comment.content = handle_bible_verse_tagging(@comment.content)
     
@@ -80,6 +84,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
+    
+    authenticate_content_owner(@comment.user_id)
+    
     @comment.destroy
 
     respond_to do |format|

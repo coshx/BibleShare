@@ -36,6 +36,7 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+    authenticate_content_owner(@post.user_id)
   end
 
   # POST /posts
@@ -62,6 +63,9 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
+    
+    authenticate_content_owner(@post.user_id)
+    
     @post.update_attributes(params[:post])
     @post.content = handle_bible_verse_tagging(@post.content)
     
@@ -80,6 +84,9 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
+    
+    authenticate_content_owner(@post.user_id)
+    
     @post.destroy
 
     respond_to do |format|

@@ -84,4 +84,39 @@ feature "Updating/deleting contents", %q{
     page.driver.browser.switch_to.alert.accept
     page.should_not have_content('Test title')
   end
+  
+  scenario "Not logged in as the contents owner" do
+    #Not logged in
+    click_link 'Sign out'
+    visit '/passages'
+    click_link 'Show'
+    
+    page.should have_content('John 3:16-20')
+    find('#edit_delete_passage').should_not have_content('Edit')
+    find('#edit_delete_passage').should_not have_content('Delete')
+    page.should have_content('Good passage!')
+    find('#edit_delete_post').should_not have_content('Edit')
+    find('#edit_delete_post').should_not have_content('Delete')
+    page.should have_content('Good sharing!')
+    find('#edit_delete_comment').should_not have_content('Edit')
+    find('#edit_delete_comment').should_not have_content('Delete')
+    
+    #Logged in, but not as the contents owner
+    visit '/users/sign_in'
+    fill_in 'Email', :with => 'pooser_user@email.com'
+    fill_in 'Password', :with => 'password'
+    click_button 'Sign in'
+    visit '/passages'
+    click_link 'Show'
+    
+    page.should have_content('John 3:16-20')
+    find('#edit_delete_passage').should_not have_content('Edit')
+    find('#edit_delete_passage').should_not have_content('Delete')
+    page.should have_content('Good passage!')
+    find('#edit_delete_post').should_not have_content('Edit')
+    find('#edit_delete_post').should_not have_content('Delete')
+    page.should have_content('Good sharing!')
+    find('#edit_delete_comment').should_not have_content('Edit')
+    find('#edit_delete_comment').should_not have_content('Delete')
+  end
 end

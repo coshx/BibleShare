@@ -35,6 +35,7 @@ class PassagesController < ApplicationController
   # GET /passages/1/edit
   def edit
     @passage = Passage.find(params[:id])
+    authenticate_content_owner(@passage.user_id)
   end
 
   # POST /passages
@@ -61,9 +62,12 @@ class PassagesController < ApplicationController
   # PUT /passages/1.json
   def update
     @passage = Passage.find(params[:id])
+    
+    authenticate_content_owner(@passage.user_id)
+    
     @passage.update_attributes(params[:passage])
     @passage.scripture = render_bible_verses(@passage.bible)
-    
+      
     respond_to do |format|
       if @passage.save
         format.html { redirect_to @passage, notice: 'Passage was successfully updated.' }
@@ -79,8 +83,10 @@ class PassagesController < ApplicationController
   # DELETE /passages/1.json
   def destroy
     @passage = Passage.find(params[:id])
-    @passage.destroy
+    
+    authenticate_content_owner(@passage.user_id)
 
+    @passage.destroy
     respond_to do |format|
       format.html { redirect_to passages_url }
       format.json { head :no_content }
