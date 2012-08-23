@@ -14,18 +14,22 @@
 \|
 = link_to 'Back', passages_path
 \|
-= link_to 'Share your thought', new_post_path(:passage_id => @passage.id)
+= link_to 'Share your thought', new_post_path(:passage_id => @passage.id), :remote => true
 
+#new_post
 
 %br
 %br
 %br
 
-%h2 Posts
-- @passage.posts.each do |post|
-  = post.content
-  %br
-  = link_to 'Comment on this post', new_comment_path(:post_id => post.id)
-  %h5 Comments
-  - post.comments.each do |comment|
-    = comment.content
+#posts
+  %h2 Posts
+  - @passage.posts.each do |post|
+    = post.content
+    %br
+    = link_to 'Comment on this post', new_comment_path(:post_id => post.id)
+    %h5 Comments
+    - post.comments.each do |comment|
+      = comment.content
+    %br
+    %br
