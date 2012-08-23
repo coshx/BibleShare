@@ -41,6 +41,9 @@ class PassagesController < ApplicationController
   # POST /passages.json
   def create
     @passage = Passage.new(params[:passage])
+    if user_signed_in?
+      @passage.user_id = current_user.id
+    end
     @passage.scripture = render_bible_verses(@passage.bible)
     
     respond_to do |format|

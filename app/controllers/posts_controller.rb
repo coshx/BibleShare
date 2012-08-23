@@ -42,6 +42,9 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
+    if user_signed_in?
+      @post.user_id = current_user.id
+    end
     @post.content = handle_bible_verse_tagging(@post.content)
 
     respond_to do |format|
