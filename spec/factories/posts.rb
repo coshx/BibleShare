@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :post do
-    content 'Please share!!'
+    content 'Good passage!'
   end
 end

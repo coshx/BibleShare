@@ -1,9 +1,9 @@
 require 'acceptance/acceptance_helper'
 
-feature "Create a post", %q{
+feature "Comment on a post", %q{
   As an user,
-  I want to share my thought about a passage
-  So that others can benefit from it
+  I want to comment what other people shared
+  So that I can express my opinion about their thoughts
 } do
 
   background do
@@ -15,17 +15,18 @@ feature "Create a post", %q{
   scenario "Create a post" do
     visit '/passages'
     click_link 'Show'
-    click_link 'Share your thoughts'
-    fill_in 'Content', :with => 'I really like this passage. Thanks for uploading the passage.'
+    click_link 'Comment on this post'
+    fill_in 'Content', :with => 'Thanks for sharing!'
     click_button 'Save'
     page.should have_content('John 3:16-20')
-    page.should have_content('I really like this passage')
+    page.should have_content('Good passage!')
+    page.should have_content('Thanks for sharing!')
   end
   
-  scenario "Able to see all contents while posting", :js => true do
+  scenario "Able to see all contents while commenting", :js => true do
     visit '/passages'
     click_link 'Show'
-    click_link 'Share your thoughts'
+    click_link 'Comment on this post'
     page.should have_content('Content')
     page.should have_content('John 3:16-20')
     page.should have_content('Good passage!')
