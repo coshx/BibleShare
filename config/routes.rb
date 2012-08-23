@@ -1,4 +1,8 @@
 BibleShare::Application.routes.draw do
+  resources :comments
+
+  resources :posts
+
   resources :passages
 
   root :to => 'pages#home'
