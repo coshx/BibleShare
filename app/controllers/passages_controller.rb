@@ -40,9 +40,9 @@ class PassagesController < ApplicationController
   # POST /passages
   # POST /passages.json
   def create
-
     @passage = Passage.new(params[:passage])
-
+    @passage.scripture = render_bible_verses(@passage.bible)
+    
     respond_to do |format|
       if @passage.save
         format.html { redirect_to @passage, notice: 'Passage was successfully created.' }
