@@ -6,4 +6,8 @@ class Passage < ActiveRecord::Base
   
   scope :public_passages, where(:is_private => 'false')
   scope :private_passages, where(:is_private => 'true')
+  
+  validates :title, :presence => true
+  validates :bible, :presence => true
+  validates :scripture, :presence => true
 end
