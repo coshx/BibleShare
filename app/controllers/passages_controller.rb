@@ -77,6 +77,8 @@ class PassagesController < ApplicationController
         @permission.save
         @passage.permission = @permission
       end
+    else
+      @passage.is_private = false
     end
     @passage.scripture = render_bible_verses(@passage.bible)
 

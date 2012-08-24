@@ -1,33 +1,31 @@
 %p#notice= notice
 
+
 .row
   .span6
     .passage
-      %p
-        %h1
-          %b #{@passage.title}
-      %p
-        %b Scripture
-        = @passage.scripture.html_safe
-      %p
-        %b Content:
-        = @passage.content
+      %h3
+        %b #{@passage.title}
+        
+      = @passage.render_bible_verses.html_safe
+      
+      %br
+      %br
+      
+      %b Content:
+      = @passage.content
 
-    #edit_delete_passage
-      - if user_signed_in?
-        - if current_user.id == @passage.user_id
-          = link_to 'Edit', edit_passage_path(@passage), :remote => true
-          \|
-          = link_to 'Delete', @passage, :confirm => 'Are you sure?', :method => :delete
+      #edit_delete_passage
+        - if user_signed_in?
+          - if current_user.id == @passage.user_id
+            = link_to 'Edit', edit_passage_path(@passage), :remote => true
+            \|
+            = link_to 'Delete', @passage, :confirm => 'Are you sure?', :method => :delete
 
-    = link_to 'Share your thoughts', new_post_path(:passage_id => @passage.id), :remote => true
+      = link_to 'Share your thoughts', new_post_path(:passage_id => @passage.id), :remote => true
 
-  .span3
+  .span6
     #new_post
-
-    %br
-    %br
-    %br
 
     #posts
       %h2 Posts
