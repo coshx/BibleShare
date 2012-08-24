@@ -3,6 +3,7 @@ BibleShare
 
 Online group bible sharing tool
 
+Demo: http://bible-share.herokuapp.com/
 
 Description:
 ======
