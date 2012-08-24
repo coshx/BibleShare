@@ -19,7 +19,7 @@ Passage:
 - Passage has 4 components: title, bible, scripture, and content.
 The 'bible' field is what you enter when you create the passage. 
 
-ex)
+-Examples
 1. single verse 'John 3:1'
 2. verse range 'John 3:1-5'
 3. cross-chapter range 'John 3:18-4:25'
@@ -52,8 +52,7 @@ Tagging bible veres:
 ======
 - Users can tag bible verses in their posts and comments.
 - You just simply surround the verses with @ signs and submit and it will display the full passage.
-
-ex)
+- Examples
 1. Hi I like this passage. @Romans 3:2-5@ is also good!
 2. More vereses here. @1Cor 2:5; 2Cor 3:6@
 3. @Gen 2:5@ and also @Rev 2:5@
