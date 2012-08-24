@@ -1,19 +1,20 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @passage.title
-%p
-  %b Bible:
-  = @passage.scripture.html_safe
-%p
-  %b Content:
-  = @passage.content
+.passage
+  %p
+    %b Title:
+    = @passage.title
+  %p
+    %b Bible:
+    = @passage.scripture.html_safe
+  %p
+    %b Content:
+    = @passage.content
 
 #edit_delete_passage
   - if user_signed_in?
     - if current_user.id == @passage.user_id
-      = link_to 'Edit', edit_passage_path(@passage)
+      = link_to 'Edit', edit_passage_path(@passage), :remote => true
       \|
       = link_to 'Delete', @passage, :confirm => 'Are you sure?', :method => :delete
 
@@ -28,11 +29,12 @@
 #posts
   %h2 Posts
   - @passage.posts.each_with_index do |post, index|
-    = post.content.html_safe
+    .post{:id=>"post_content_#{index}"}
+      = post.content.html_safe
     #edit_delete_post
       - if user_signed_in?
         - if current_user.id == post.user_id
-          = link_to 'Edit', edit_post_path(post, :passage_id => @passage.id)
+          = link_to 'Edit', edit_post_path(post, :passage_id => @passage.id, :index => index), :remote => true
           \|
         - if current_user.id == post.user_id || current_user.id == post.passage.user_id
           = link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete
@@ -40,11 +42,12 @@
     
     %h5 Comments
     - post.comments.each do |comment|
-      = comment.content.html_safe
+      .comment{:id=>"comment_content_#{index}"}
+        = comment.content.html_safe
       #edit_delete_comment
         - if user_signed_in?
           - if current_user.id == comment.user_id
-            = link_to 'Edit', edit_comment_path(comment, :post_id => post.id)
+            = link_to 'Edit', edit_comment_path(comment, :post_id => post.id, :index => index), :remote => true
             \|
           - if current_user.id == comment.user_id || current_user.id == comment.post.user_id
             = link_to 'Delete', comment, :confirm => 'Are you sure?', :method => :delete

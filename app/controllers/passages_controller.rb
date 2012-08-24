@@ -36,6 +36,12 @@ class PassagesController < ApplicationController
   def edit
     @passage = Passage.find(params[:id])
     authenticate_content_owner(@passage.user_id)
+    
+    respond_to do |format|
+      format.html # edit.html.erb
+      format.js{}
+      format.json { render json: @passage }
+    end
   end
 
   # POST /passages

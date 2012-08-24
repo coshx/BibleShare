@@ -24,7 +24,7 @@ feature "Updating/deleting contents", %q{
     click_link 'Show'
   end
 
-  scenario "Logged in as the contents owner - Updating" do
+  scenario "Logged in as the contents owner - Updating", :js => true do
     page.should have_content('John 3:16-20')
     find('#edit_delete_passage').should have_content('Edit')
     find('#edit_delete_passage').should have_content('Delete')
@@ -37,6 +37,10 @@ feature "Updating/deleting contents", %q{
     
     #edit passage
     find('#edit_delete_passage').click_link 'Edit'
+      #test if other contents are visible
+      page.should have_content('Content')
+      page.should have_content('Good passage!')
+      page.should have_content('Good sharing!')
     fill_in 'Title', :with => 'New title'
     fill_in 'Bible', :with => 'Rev 3:1-5'
     fill_in 'Content', :with => 'new content!!'
@@ -52,6 +56,10 @@ feature "Updating/deleting contents", %q{
     
     #edit post
     find('#edit_delete_post').click_link 'Edit'
+      #test if other contents are visible
+      page.should have_content('Content')
+      page.should have_content('Revelation 3:1-5')
+      page.should have_content('Good sharing!')
     fill_in 'Content', :with => 'I am changing the post content. @Romans 5:3-5@ Please meditate on this passage too!'
     click_button 'Save'
     page.should_not have_content('Good passage!')
@@ -59,7 +67,12 @@ feature "Updating/deleting contents", %q{
     page.should have_content('And hope maketh not ashamed')
 
     #edit comment
+    page.should have_content('Good sharing!')
     find('#edit_delete_comment').click_link 'Edit'
+      #test if other contents are visible
+      page.should have_content('Content')
+      page.should have_content('Revelation 3:1-5')
+      page.should have_content('Romans 5:3-5')
     fill_in 'Content', :with => 'I am changing the comment. @Genesis 1:1-2@ God is good!'
     click_button 'Save'
     page.should_not have_content('Good sharing!')

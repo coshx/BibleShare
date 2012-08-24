@@ -37,6 +37,13 @@ class CommentsController < ApplicationController
   def edit
     @comment = Comment.find(params[:id])
     authenticate_content_owner(@comment.user_id)
+    
+    @index = params[:index]
+    respond_to do |format|
+      format.html # edit.html.erb
+      format.js{}
+      format.json { render json: @comment }
+    end
   end
 
   # POST /comments
