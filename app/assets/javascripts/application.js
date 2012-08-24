@@ -26,3 +26,15 @@ function cancelPostEdit(index) {
   $("#post_content_" + index)[0].style.visibility = "visible";
   $("#post_content_" + index)[0].style.height = "auto";
 }
+
+function cancelComment(index) {
+  $("#new_comment_" + index).empty();
+  $("#comment_button_" + index)[0].style.visibility = "visible";
+  $("#comment_button_" + index)[0].style.height = "auto";
+}
+
+function cancelCommentEdit(index) {
+  $("#edit_comment_" + index).empty();
+  $("#comment_content_" + index)[0].style.visibility = "visible";
+  $("#comment_content_" + index)[0].style.height = "auto";
+}

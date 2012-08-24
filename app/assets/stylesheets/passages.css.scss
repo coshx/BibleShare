@@ -14,7 +14,7 @@
 
 .post-comment{
   padding-left: 15px;
-  border-left: solid 1px #BAEAF0;
+  border-left: solid 3px #BAEAF0;
 }
 
 #post-comment-span{
@@ -29,6 +29,29 @@
 #post{
   padding-top: 15px;
   padding-bottom: 15px;
-  border-top: solid 1px #BAEAF0;
+  border-top: solid 3px #BAEAF0;
 }
+
+#comments{
+  margin-left: 30px;
+  background: #EFF8FD;
+}
+
+#comment{
+  margin-bottom: 5px;
+  border-bottom: solid 3px #FFF;
+}
+
+.edit_comment{
+  margin-left: 10px;
+}
+
+#comment_new_form{
+  margin-left: 30px;
+}
+
+#passage{
+  border-top: solid 3px #BAEAF0;
+}
+
 

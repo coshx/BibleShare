@@ -1,11 +1,20 @@
-%h1 Private Shares
-- if !user_signed_in?
-  %p You're not signed in. You cannot join a private sharing unless you sign in.
-- else
-  - if @passages.count > 0
-    - @passages.each do |passage|
-      = passage.title
-      = passage.bible
-      = passage.content
+.span6
+  %h1 Private Shares
+  - if !user_signed_in?
+    .alert.alert-error
+      You're not signed in. You cannot join a private sharing unless you sign in.
   - else
-    %p You're not involved in any private sharing.
+    - if @passages.count > 0
+      - @passages.each do |passage|
+        #passage
+          %h4
+            = link_to passage.title, passage
+          %b Scripture: 
+          = passage.bible
+          %br
+          %b Content:
+          = passage.content
+        %br
+    - else
+      .alert.alert-block
+        You're not involved in any private sharing.

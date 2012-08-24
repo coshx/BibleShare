@@ -1,1 +1,3 @@
-$("#comment_content_" + <%=@index %>).html("<%= escape_javascript(render(:partial => "comments/form")) %>");
+$("#edit_comment_" + <%=@index %>).html("<%= escape_javascript(render(:partial => "comments/edit_form")) %>");
+$("#comment_content_" + <%=@index %>)[0].style.visibility = "hidden";
+$("#comment_content_" + <%=@index %>)[0].style.height = "0px";

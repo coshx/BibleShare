@@ -1,7 +1,15 @@
 %p#notice= notice
 
-%h1 Public Shares
-- @passages.each do |passage|
-  = passage.title
-  = passage.bible
-  = passage.content
+.span6
+  %h1 Public Shares
+  %br
+  - @passages.each do |passage|
+    #passage
+      %h4
+        = link_to passage.title, passage
+      %b Scripture: 
+      = passage.bible
+      %br
+      %b Content:
+      = passage.content
+    %br

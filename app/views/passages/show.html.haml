@@ -29,7 +29,7 @@
       #new_post
         %br
       #share_button
-        = link_to 'Share your thoughts about this passage', new_post_path(:passage_id => @passage.id), :remote => true, :class => 'btn btn-primary btn-large'
+        = link_to 'Share your thoughts about this passage', new_post_path(:passage_id => @passage.id), :remote => true, :class => 'btn btn-success btn-large'
 
       #posts
         - @passage.posts.each_with_index do |post, index|
@@ -47,19 +47,24 @@
                   = link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete
             %br
           
-
-            - post.comments.each do |comment|
-              .comment{:id=>"comment_content_#{index}"}
-                = comment.content.html_safe
-              #edit_delete_comment
-                - if user_signed_in?
-                  - if current_user.id == comment.user_id
-                    = link_to 'Edit', edit_comment_path(comment, :post_id => post.id, :index => index), :remote => true
-                    \|
-                  - if current_user.id == comment.user_id || current_user.id == comment.post.user_id
-                    = link_to 'Delete', comment, :confirm => 'Are you sure?', :method => :delete
-              %br
+            #comments
+              - post.comments.each_with_index do |comment, comment_index|
+                #comment
+                  .edit_comment{:id=>"edit_comment_#{comment_index}"}
+                  
+                  .comment_content{:id=>"comment_content_#{comment_index}"}
+                    = comment.content.html_safe
+                    %br
+                    - if user_signed_in?
+                      - if current_user.id == comment.user_id
+                        = link_to 'Edit', edit_comment_path(comment, :post_id => post.id, :index => comment_index), :remote => true
+                        \|
+                      - if current_user.id == comment.user_id || current_user.id == comment.post.user_id
+                        = link_to 'Delete', comment, :confirm => 'Are you sure?', :method => :delete
               
-            = link_to 'Comment on this post', new_comment_path(:post_id => post.id, :index => index), :remote => true
-            %br
-            .new_comment{:id=>"comment_#{index}"}
+            %br  
+            .new_comment{:id=>"new_comment_#{index}"}
+            
+            .new_comment{:id=>"comment_button_#{index}"}
+              = link_to 'Comment on this post', new_comment_path(:post_id => post.id, :index => index), :remote => true, :class => 'btn btn-success btn-small'
+          
