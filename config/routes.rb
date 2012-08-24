@@ -8,6 +8,8 @@ BibleShare::Application.routes.draw do
   resources :passages
 
   root :to => 'pages#home'
+  match 'publicShare' => 'pages#public_share', :as => :public_share
+  match 'privateShare' => 'pages#private_share', :as => :private_share
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

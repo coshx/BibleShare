@@ -9,8 +9,8 @@
       .nav-collapse
         %ul.nav
           %li= link_to "Home", root_path
-          %li= link_to "Public Share", passages_path
-          %li= link_to "Private Share"
+          %li= link_to "Public Share", public_share_path
+          %li= link_to "Private Share", private_share_path
           %li= link_to "Create a passage", new_passage_path
           
           - if user_signed_in?
