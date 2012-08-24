@@ -3,13 +3,17 @@
 .span6
   %h1 Public Shares
   %br
-  - @passages.each do |passage|
-    #passage
-      %h4
-        = link_to passage.title, passage
-      %b Scripture: 
-      = passage.bible
+  - if @passages.count > 0
+    - @passages.each do |passage|
+      #passage
+        %h4
+          = link_to passage.title, passage
+        %b Scripture: 
+        = passage.bible
+        %br
+        %b Content:
+        = passage.content
       %br
-      %b Content:
-      = passage.content
-    %br
+  - else
+    .alert.alert-block
+      There are currently no passages.
