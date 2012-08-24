@@ -20,11 +20,11 @@ Passage:
 The 'bible' field is what you enter when you create the passage. 
 
 ex)
-1) single verse 'John 3:1'
-2) verse range 'John 3:1-5'
-3) cross-chapter range 'John 3:18-4:25'
-4) Separate verses 'John 3:1-5; Romans 3:2-5'
-5) Abbreviation 'Rom 3:2-5; Gen 2:2-5'
+1. single verse 'John 3:1'
+2. verse range 'John 3:1-5'
+3. cross-chapter range 'John 3:18-4:25'
+4. Separate verses 'John 3:1-5; Romans 3:2-5'
+5. Abbreviation 'Rom 3:2-5; Gen 2:2-5'
 
 It will render the scripture by parsing an xml and store it to its scripture field.
 
@@ -54,9 +54,9 @@ Tagging bible veres:
 - You just simply surround the verses with @ signs and submit and it will display the full passage.
 
 ex)
-1) Hi I like this passage. @Romans 3:2-5@ is also good!
-2) More vereses here. @1Cor 2:5; 2Cor 3:6@
-3) @Gen 2:5@ and also @Rev 2:5@
+1. Hi I like this passage. @Romans 3:2-5@ is also good!
+2. More vereses here. @1Cor 2:5; 2Cor 3:6@
+3. @Gen 2:5@ and also @Rev 2:5@
 
 To Judges:
 ======
