@@ -1,0 +1,22 @@
+= form_for @passage do |f|
+  -if @passage.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@passage.errors.count, "error")} prohibited this passage from being saved:"
+      %ul
+        - @passage.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :bible
+    = f.text_field :bible
+  .field
+    = f.label :content
+    = f.text_field :content
+  .field
+    = f.label :private
+    = f.check_box :private
+  .actions
+    = f.submit 'Save'
