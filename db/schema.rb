@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20120824035258) do
     t.datetime "updated_at", :null => false
     t.text     "scripture"
     t.integer  "user_id"
-    t.boolean  "private"
+    t.boolean  "is_private"
   end
 
   create_table "permissions", :force => true do |t|

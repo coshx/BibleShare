@@ -36,13 +36,19 @@ class CommentsController < ApplicationController
   # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
-    authenticate_content_owner(@comment.user_id)
+    continue = authenticate_content_owner(@comment.user_id)
     
-    @index = params[:index]
-    respond_to do |format|
-      format.html # edit.html.erb
-      format.js{}
-      format.json { render json: @comment }
+    if continue
+      @index = params[:index]
+      respond_to do |format|
+        format.html # edit.html.erb
+        format.js{}
+        format.json { render json: @comment }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
+      end
     end
   end
 
@@ -71,18 +77,24 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     
-    authenticate_content_owner(@comment.user_id)
+    continue = authenticate_content_owner(@comment.user_id)
     
-    @comment.update_attributes(params[:comment])
-    @comment.content = handle_bible_verse_tagging(@comment.content)
-    
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment.post.passage, notice: 'Comment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+    if continue
+      @comment.update_attributes(params[:comment])
+      @comment.content = handle_bible_verse_tagging(@comment.content)
+      
+      respond_to do |format|
+        if @comment.save
+          format.html { redirect_to @comment.post.passage, notice: 'Comment was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
       end
     end
   end
@@ -93,13 +105,19 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @content_owner_ids = [@comment.user_id, @comment.post.user_id]
     
-    authenticate_subcontent_owner(@content_owner_ids)
+    continue = authenticate_subcontent_owner(@content_owner_ids)
     
-    @comment.destroy
+    if continue
+      @comment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
+      end
     end
   end
 end

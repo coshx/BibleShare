@@ -2,24 +2,29 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   require 'net/http'
   
+  def authenticate_owner_or_member(passage)
+    unless((passage.permission.users.include? current_user) || (passage.user.eql? current_user))
+      return false
+    end
+    return true
+  end
+  
   def authenticate_content_owner(content_user_id)
     unless user_signed_in? && current_user.id == content_user_id
-      respond_to do |format|
-        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
-      end
+      return false
     end
+    return true
   end
   
   def authenticate_subcontent_owner(content_user_ids)
-    owner_found = false
     if user_signed_in?
       content_user_ids.each do |user_id|
         if current_user.id == user_id
-          owner_found = true
+          return true
         end
       end
     end
-    owner_found
+    return false
   end
   
   def render_bible_verses(param)

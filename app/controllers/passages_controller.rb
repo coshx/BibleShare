@@ -14,10 +14,22 @@ class PassagesController < ApplicationController
   # GET /passages/1.json
   def show
     @passage = Passage.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @passage }
+    
+    if @passage.is_private
+      continue = authenticate_owner_or_member(@passage)
+    else
+      continue = true
+    end
+    
+    if continue
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @passage }
+      end
+    else
+      respond_to do |format|
+        format.html {redirect_to public_share_path, notice: "You're not authorized to access this private passage!"}
+      end
     end
   end
 
@@ -35,12 +47,18 @@ class PassagesController < ApplicationController
   # GET /passages/1/edit
   def edit
     @passage = Passage.find(params[:id])
-    authenticate_content_owner(@passage.user_id)
+    continue = authenticate_content_owner(@passage.user_id)
     
-    respond_to do |format|
-      format.html # edit.html.erb
-      format.js{}
-      format.json { render json: @passage }
+    if continue
+      respond_to do |format|
+        format.html # edit.html.erb
+        format.js{}
+        format.json { render json: @passage }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
+      end
     end
   end
 
@@ -51,7 +69,7 @@ class PassagesController < ApplicationController
     if user_signed_in?
       @passage.user_id = current_user.id
 
-      if params[:passage][:private]
+      if params[:passage][:is_private]
         @permission = Permission.create()
         params[:user_ids].each do |user_id|
           @permission.users << User.find(user_id)
@@ -78,18 +96,24 @@ class PassagesController < ApplicationController
   def update
     @passage = Passage.find(params[:id])
     
-    authenticate_content_owner(@passage.user_id)
+    continue = authenticate_content_owner(@passage.user_id)
     
-    @passage.update_attributes(params[:passage])
-    @passage.scripture = render_bible_verses(@passage.bible)
-      
-    respond_to do |format|
-      if @passage.save
-        format.html { redirect_to @passage, notice: 'Passage was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @passage.errors, status: :unprocessable_entity }
+    if continue
+      @passage.update_attributes(params[:passage])
+      @passage.scripture = render_bible_verses(@passage.bible)
+        
+      respond_to do |format|
+        if @passage.save
+          format.html { redirect_to @passage, notice: 'Passage was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @passage.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
       end
     end
   end
@@ -99,12 +123,18 @@ class PassagesController < ApplicationController
   def destroy
     @passage = Passage.find(params[:id])
     
-    authenticate_content_owner(@passage.user_id)
-
-    @passage.destroy
-    respond_to do |format|
-      format.html { redirect_to passages_url }
-      format.json { head :no_content }
+    continue = authenticate_content_owner(@passage.user_id)
+    
+    if continue
+      @passage.destroy
+      respond_to do |format|
+        format.html { redirect_to passages_url }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: "You're not authorized to do this! Please sign in as the content owner."}
+      end      
     end
   end
 end

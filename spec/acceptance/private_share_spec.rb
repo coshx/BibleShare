@@ -11,7 +11,7 @@ feature "Private share", %q{
     private_share_member = FactoryGirl.create(:user, :email => 'private_share_member@email.com', :name => 'Private Mameber', :username => 'private1234')                               
     normal_user = FactoryGirl.create(:user, :email => 'normal_user@email.com', :name => 'Normal User', :username => 'user1234')
     
-    passage = FactoryGirl.create(:passage, :user_id => passage_owner.id, :private => true)
+    passage = FactoryGirl.create(:passage, :user_id => passage_owner.id, :is_private => true)
     permission = Permission.create()
     permission.users << private_share_member
     permission.save
