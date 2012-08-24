@@ -13,3 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+function cancelPostShare() {
+  $("#new_post").empty();
+  $("#share_button")[0].style.visibility = "visible";
+  $("#share_button")[0].style.height = "auto";
+}
+
+function cancelPostEdit(index) {
+  $("#edit_post_" + index).empty();
+  $("#post_content_" + index)[0].style.visibility = "visible";
+  $("#post_content_" + index)[0].style.height = "auto";
+}

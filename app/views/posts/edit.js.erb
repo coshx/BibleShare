@@ -1,1 +1,4 @@
-$("#post_content_" + <%=@index %>).html("<%= escape_javascript(render(:partial => "posts/form")) %>");
+$("#edit_post_" + <%=@index %>).html("<%= escape_javascript(render(:partial => "posts/edit_form")) %>");
+$("#post_content_" + <%=@index %>)[0].style.visibility = "hidden";
+$("#post_content_" + <%=@index %>)[0].style.height = "0px";
+

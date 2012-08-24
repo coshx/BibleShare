@@ -7,9 +7,9 @@
           %li= msg
 
   .field
-    = f.label :content
-    = f.text_area :content
+    = f.text_area :content, :class => 'span6', :style => "height: 230px;"
   .field
     = f.hidden_field :passage_id, :value => params[:passage_id]
   .actions
-    = f.submit 'Save'
+    = f.submit 'Edit', :class => 'btn btn-success'
+    = link_to 'Cancel', "#", :id => 'cancelEditPost', :remote => true, :class => 'btn btn-success', :onClick => "cancelPostEdit(#{@index})"

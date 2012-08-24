@@ -14,4 +14,3 @@ $ ->
     members_div = $("#members_div")[0]
     $(members_div).append(new_div)
 
-

@@ -1,1 +1,4 @@
-$("#new_post").html("<%= escape_javascript(render(:partial => "posts/form")) %>");
+$("#new_post")[0].style.paddingBottom = "0px";
+$("#new_post").html("<%= escape_javascript(render(:partial => "posts/new_form")) %>");
+$("#share_button")[0].style.visibility = "hidden";
+$("#share_button")[0].style.height = "0px";
