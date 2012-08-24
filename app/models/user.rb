@@ -12,4 +12,7 @@ class User < ActiveRecord::Base
   has_many :posts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_and_belongs_to_many :permissions
+
+  validates :name, :presence => true
+  validates :username, :presence => true, :uniqueness => true
 end
