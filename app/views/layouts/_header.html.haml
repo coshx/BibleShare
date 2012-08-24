@@ -13,9 +13,6 @@
           %li= link_to "Private Share", private_share_path
           %li= link_to "Create a passage", new_passage_path
           
-          - if user_signed_in?
-            Signed in as #{current_user.email}
-            %br/
-            Not you? #{link_to "Sign out", destroy_user_session_path, :method => 'delete', :disable_with => "Signing out..."}
-          - else
-            %li= link_to "Sign In", new_user_session_path
+        .pull-right
+          = render "layouts/account"
+

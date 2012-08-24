@@ -1,58 +1,61 @@
 %p#notice= notice
 
-.passage
-  %p
-    %b Title:
-    = @passage.title
-  %p
-    %b Bible:
-    = @passage.scripture.html_safe
-  %p
-    %b Content:
-    = @passage.content
+.row
+  .span6
+    .passage
+      %p
+        %h1
+          %b #{@passage.title}
+      %p
+        %b Scripture
+        = @passage.scripture.html_safe
+      %p
+        %b Content:
+        = @passage.content
 
-#edit_delete_passage
-  - if user_signed_in?
-    - if current_user.id == @passage.user_id
-      = link_to 'Edit', edit_passage_path(@passage), :remote => true
-      \|
-      = link_to 'Delete', @passage, :confirm => 'Are you sure?', :method => :delete
-
-= link_to 'Share your thoughts', new_post_path(:passage_id => @passage.id), :remote => true
-
-#new_post
-
-%br
-%br
-%br
-
-#posts
-  %h2 Posts
-  - @passage.posts.each_with_index do |post, index|
-    .post{:id=>"post_content_#{index}"}
-      = post.content.html_safe
-    #edit_delete_post
+    #edit_delete_passage
       - if user_signed_in?
-        - if current_user.id == post.user_id
-          = link_to 'Edit', edit_post_path(post, :passage_id => @passage.id, :index => index), :remote => true
+        - if current_user.id == @passage.user_id
+          = link_to 'Edit', edit_passage_path(@passage), :remote => true
           \|
-        - if current_user.id == post.user_id || current_user.id == post.passage.user_id
-          = link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete
+          = link_to 'Delete', @passage, :confirm => 'Are you sure?', :method => :delete
+
+    = link_to 'Share your thoughts', new_post_path(:passage_id => @passage.id), :remote => true
+
+  .span3
+    #new_post
+
     %br
-    
-    %h5 Comments
-    - post.comments.each do |comment|
-      .comment{:id=>"comment_content_#{index}"}
-        = comment.content.html_safe
-      #edit_delete_comment
-        - if user_signed_in?
-          - if current_user.id == comment.user_id
-            = link_to 'Edit', edit_comment_path(comment, :post_id => post.id, :index => index), :remote => true
-            \|
-          - if current_user.id == comment.user_id || current_user.id == comment.post.user_id
-            = link_to 'Delete', comment, :confirm => 'Are you sure?', :method => :delete
-      %br
-      
-    = link_to 'Comment on this post', new_comment_path(:post_id => post.id, :index => index), :remote => true
     %br
-    .new_comment{:id=>"comment_#{index}"}
+    %br
+
+    #posts
+      %h2 Posts
+      - @passage.posts.each_with_index do |post, index|
+        .post{:id=>"post_content_#{index}"}
+          = post.content.html_safe
+        #edit_delete_post
+          - if user_signed_in?
+            - if current_user.id == post.user_id
+              = link_to 'Edit', edit_post_path(post, :passage_id => @passage.id, :index => index), :remote => true
+              \|
+            - if current_user.id == post.user_id || current_user.id == post.passage.user_id
+              = link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete
+        %br
+        
+        %h5 Comments
+        - post.comments.each do |comment|
+          .comment{:id=>"comment_content_#{index}"}
+            = comment.content.html_safe
+          #edit_delete_comment
+            - if user_signed_in?
+              - if current_user.id == comment.user_id
+                = link_to 'Edit', edit_comment_path(comment, :post_id => post.id, :index => index), :remote => true
+                \|
+              - if current_user.id == comment.user_id || current_user.id == comment.post.user_id
+                = link_to 'Delete', comment, :confirm => 'Are you sure?', :method => :delete
+          %br
+          
+        = link_to 'Comment on this post', new_comment_path(:post_id => post.id, :index => index), :remote => true
+        %br
+        .new_comment{:id=>"comment_#{index}"}
