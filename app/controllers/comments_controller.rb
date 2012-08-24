@@ -84,8 +84,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
+    @content_owner_ids = [@comment.user_id, @comment.post.user_id]
     
-    authenticate_content_owner(@comment.user_id)
+    authenticate_subcontent_owner(@content_owner_ids)
     
     @comment.destroy
 

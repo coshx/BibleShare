@@ -34,6 +34,7 @@
         - if current_user.id == post.user_id
           = link_to 'Edit', edit_post_path(post, :passage_id => @passage.id)
           \|
+        - if current_user.id == post.user_id || current_user.id == post.passage.user_id
           = link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete
     %br
     
@@ -45,6 +46,7 @@
           - if current_user.id == comment.user_id
             = link_to 'Edit', edit_comment_path(comment, :post_id => post.id)
             \|
+          - if current_user.id == comment.user_id || current_user.id == comment.post.user_id
             = link_to 'Delete', comment, :confirm => 'Are you sure?', :method => :delete
       %br
       

@@ -10,7 +10,7 @@ feature "Updating/deleting contents", %q{
     owner = FactoryGirl.create(:user, :email => 'contents_owner@email.com', :password => 'password', :password_confirmation => 'password', 
                                  :name => 'Sang Won Seo', :username => 'myaccnt')
     poor_user = FactoryGirl.create(:user, :email => 'poor_user@email.com', :password => 'password', :password_confirmation => 'password', 
-                                      :name => 'Hackathon Judge', :username => 'judge1234')
+                                      :name => 'Have No Contents', :username => 'nocontent1234')
     
     passage = FactoryGirl.create(:passage, :user_id => owner.id)
     post = FactoryGirl.create(:post, :passage_id => passage.id, :user_id => owner.id)

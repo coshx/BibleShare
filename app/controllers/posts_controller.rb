@@ -85,7 +85,9 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     
-    authenticate_content_owner(@post.user_id)
+    @content_owner_ids = [@post.user_id, @post.passage.user_id]
+    
+    authenticate_subcontent_owner(@content_owner_ids)
     
     @post.destroy
 

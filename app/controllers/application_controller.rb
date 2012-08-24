@@ -10,6 +10,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def authenticate_subcontent_owner(content_user_ids)
+    owner_found = false
+    if user_signed_in?
+      content_user_ids.each do |user_id|
+        if current_user.id == user_id
+          owner_found = true
+        end
+      end
+    end
+    owner_found
+  end
+  
   def render_bible_verses(param)
     bible_verses = param
     base_url = "http://api.preachingcentral.com/bible.php?passage="
