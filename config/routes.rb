@@ -6,6 +6,8 @@ BibleShare::Application.routes.draw do
   resources :posts
 
   resources :passages
+  
+  resources :users
 
   root :to => 'pages#home'
   match 'publicShare' => 'pages#public_share', :as => :public_share

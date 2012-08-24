@@ -50,9 +50,18 @@ class PassagesController < ApplicationController
     @passage = Passage.new(params[:passage])
     if user_signed_in?
       @passage.user_id = current_user.id
+
+      if params[:passage][:private]
+        @permission = Permission.create()
+        params[:user_ids].each do |user_id|
+          @permission.users << User.find(user_id)
+        end
+        @permission.save
+        @passage.permission = @permission
+      end
     end
     @passage.scripture = render_bible_verses(@passage.bible)
-    
+
     respond_to do |format|
       if @passage.save
         format.html { redirect_to @passage, notice: 'Passage was successfully created.' }

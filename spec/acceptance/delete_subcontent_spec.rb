@@ -7,12 +7,9 @@ feature "Deleting subcontents", %q{
 } do
 
   background do
-    passage_owner = FactoryGirl.create(:user, :email => 'passage_owner@email.com', :password => 'password', :password_confirmation => 'password', 
-                                 :name => 'Sang Won Seo', :username => 'myaccnt')
-    post_owner = FactoryGirl.create(:user, :email => 'post_owner@email.com', :password => 'password', :password_confirmation => 'password', 
-                                      :name => 'Have Some Content', :username => 'post1234')                               
-    comment_owner = FactoryGirl.create(:user, :email => 'comment_owner@email.com', :password => 'password', :password_confirmation => 'password', 
-                                      :name => 'Have Some Content', :username => 'comment1234')
+    passage_owner = FactoryGirl.create(:user, :email => 'passage_owner@email.com', :name => 'Passage Owner', :username => 'passage1234')
+    post_owner = FactoryGirl.create(:user, :email => 'post_owner@email.com', :name => 'Post Owner', :username => 'post1234')                               
+    comment_owner = FactoryGirl.create(:user, :email => 'comment_owner@email.com', :name => 'Comment Owner', :username => 'comment1234')
     
     passage = FactoryGirl.create(:passage, :user_id => passage_owner.id)
     post = FactoryGirl.create(:post, :passage_id => passage.id, :user_id => post_owner.id)

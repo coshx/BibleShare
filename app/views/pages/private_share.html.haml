@@ -1,5 +1,11 @@
 %h1 Private Shares
-- @passages.each do |passage|
-  = passage.title
-  = passage.bible
-  = passage.content
+- if !user_signed_in?
+  %p You're not signed in. You cannot join a private sharing unless you sign in.
+- else
+  - if @passages.count > 0
+    - @passages.each do |passage|
+      = passage.title
+      = passage.bible
+      = passage.content
+  - else
+    %p You're not involved in any private sharing.

@@ -7,10 +7,8 @@ feature "Updating/deleting contents", %q{
 } do
 
   background do
-    owner = FactoryGirl.create(:user, :email => 'contents_owner@email.com', :password => 'password', :password_confirmation => 'password', 
-                                 :name => 'Sang Won Seo', :username => 'myaccnt')
-    poor_user = FactoryGirl.create(:user, :email => 'poor_user@email.com', :password => 'password', :password_confirmation => 'password', 
-                                      :name => 'Have No Contents', :username => 'nocontent1234')
+    owner = FactoryGirl.create(:user, :email => 'contents_owner@email.com', :name => 'Content Owner', :username => 'owner1234')
+    poor_user = FactoryGirl.create(:user, :email => 'poor_user@email.com', :name => 'Poor User', :username => 'pooruser1234')
     
     passage = FactoryGirl.create(:passage, :user_id => owner.id)
     post = FactoryGirl.create(:post, :passage_id => passage.id, :user_id => owner.id)

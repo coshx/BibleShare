@@ -15,8 +15,19 @@
   .field
     = f.label :content
     = f.text_field :content
-  .field
-    = f.label :private
-    = f.check_box :private
+  - if user_signed_in?
+    .field
+      Private?
+      = f.check_box :private, :id => 'private_checkbox'
+    #private_members
+      #members_div
+        #select_div
+          = select_tag("user_ids[]", options_from_collection_for_select(User.all, "id", "name"))
+
+      = link_to "Add Member", "#", :remote => true, :id => 'add_button'
+
+  
   .actions
     = f.submit 'Save'
+    
+    
